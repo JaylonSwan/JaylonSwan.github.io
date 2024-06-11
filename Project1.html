@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+    <link href = "style.css" rel = "stylesheet">
+    
+<head>
+    <title>My Project</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://kit.fontawesome.com/ba8749f6a5.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="navbar">
+        <ul>
+            <li><a href="index.html">About</a></li>
+            <li><a href="Projects.html">Projects</a></li>
+            <li><a href="">More</a></li>
+        </ul>
+    </div>
+    <div style="text-align: center;">
+        <h1 style="text-align: center;">Hang Man</h1>
+        <p>This HangMan game was made in c++.<br> This games is not gui based and is purly console(text) based.</h3>
+    </div>
+    <div style="display: flex; align-items: flex-start;">
+        <div style="padding: 20px;">
+            <pre><code style="border-radius: 10px; height: 350px;" class="c++">
+                #include <iostream>
+                #include <string>
+                #include <vector>
+                #include <cstdlib>
+                #include <ctime>
+                
+                
+                #include <Windows.h>
+                #include <stdlib.h>
+                
+                using namespace std;
+                
+                
+                
+                
+                
+                std::string words[] = {
+                        "game",
+                        "minimum",
+                        "mature",
+                        "mile",
+                        "pollution",
+                        "desire",
+                        "hurt",
+                        "road",
+                        "excess",
+                        "ground",
+                        "reality",
+                        "chimpanzee",
+                        "exemption",
+                        "safari",
+                        "reaction",
+                        "romantic",
+                        "respectable",
+                        "recruit",
+                        "clue",
+                        "claim",
+                        "conversation",
+                        "scan",
+                        "trade",
+                        "tire",
+                        "apathy",
+                        "crystal",
+                        "new",
+                        "cancer",
+                        "artificial",
+                        "creep",
+                        "knot",
+                        "episode",
+                        "effective",
+                        "owl",
+                        "passion",
+                        "pepper",
+                        "sickness",
+                        "progress",
+                        "adjust",
+                        "landowner",
+                        "provision",
+                        "moon",
+                        "complain",
+                        "belly",
+                        "affect",
+                        "vegetarian",
+                        "barrier",
+                        "stage",
+                        "even",
+                        "therapist"
+                };
+                
+                
+                vector<int> LetterCheck(string letter, string word)
+                {
+                
+                    vector<int> places;
+                    int amout = 0;
+                
+                    for (int i = 0; i < word.length(); i++)
+                    {
+                        if (letter.at(0) == word.at(i))
+                        {
+                            amout++;
+                            places.push_back(i);
+                        }
+                
+                    }
+                
+                    return places;
+                
+                }
+                
+                
+                bool VectorStringHasVar(vector<string> vector, string var)
+                {
+                    bool final = false;
+                    for (int i = 0; i < vector.size(); i++)
+                    {
+                        if (vector[i] == var)
+                        {
+                
+                            final = true;
+                
+                        }
+                        else
+                        {
+                
+                            final = false;
+                
+                        }
+                
+                
+                    }
+                    return final;
+                
+                
+                }
+                
+                std::vector<std::string> HangMan = {
+                    R"(
+                    +---+
+                    |   |
+                        |
+                        |
+                        |
+                        |
+                =========)",
+                    R"(
+                    +---+
+                    |   |
+                    O   |
+                        |
+                        |
+                        |
+                =========)",
+                    R"(
+                    +---+
+                    |   |
+                    O   |
+                    |   |
+                        |
+                        |
+                =========)",
+                    R"(
+                    +---+
+                    |   |
+                    O   |
+                    /|   |
+                        |
+                        |
+                =========)",
+                    R"(
+                    +---+
+                    |   |
+                    O   |
+                    /|\  |
+                        |
+                        |
+                =========)",
+                    R"(
+                    +---+
+                    |   |
+                    O   |
+                    /|\  |
+                    /    |
+                        |
+                =========)",
+                    R"(
+                    +---+
+                    |   |
+                    O   |
+                    /|\  |
+                    / \  |
+                        |
+                =========")"
+                };
+                
+                
+                void PrintVector(vector<string> list, string sep = " ")
+                {
+                    string final;
+                    for (int i = 0; i < list.size(); i++)
+                    {
+                        final.append(list[i]);
+                        final.append(sep);
+                        
+                
+                    }
+                    cout <<(final + "\n");
+                }
+                
+                //main vars
+                vector<string> WordHidden;
+                
+                int misses = 0;
+                string Guess;
+                string word;
+                int LettersGuessedRight;
+                vector<string> LettersGuessed;
+                
+                void guess()
+                {
+                    std::cout << "Hang Man!\n";
+                    //cout << word;
+                    cout << HangMan[misses] << "\n";
+                    PrintVector(WordHidden);
+                    cout << ("Letters you Guesses:\n ");
+                    PrintVector(LettersGuessed, ", ");
+                
+                    cout <<("Guess a letter or word:");
+                    std::cin >> Guess;
+                
+                    if (misses != 6)
+                    {
+                    
+                
+                        if (Guess.length() > 1)
+                        {
+                            if (Guess == word)
+                            {
+                
+                                cout <<("correct");
+                
+                            }
+                            else {
+                
+                                misses++;
+                                system("CLS");
+                                cout <<("You Guessed Wrong\n");
+                                Sleep(1000);
+                
+                                guess();
+                
+                            }
+                
+                        }
+                        else
+                        {
+                
+                
+                            if (LetterCheck(Guess, word).size() >= 1)
+                            {
+                                if (VectorStringHasVar(LettersGuessed, Guess) == true)
+                                {
+                                    system("CLS");
+                            
+                                    cout <<("You Guessed that letter\n");
+                                    Sleep(1000);
+                                    guess();
+                            
+                                }
+                                else if(VectorStringHasVar(LettersGuessed, Guess) == false)
+                                {
+                                    LettersGuessed.push_back(Guess);
+                
+                                    for (int i = 0; i < LetterCheck(Guess, word).size(); i++)
+                                    {
+                
+                                        WordHidden[LetterCheck(Guess, word)[i]] = Guess;
+                                        cout << "Vector size:" << LetterCheck(Guess, word).size() << "\n";
+                
+                                    }
+                                    LettersGuessedRight = LettersGuessedRight + LetterCheck(Guess, word).size();
+                                    system("CLS");
+                                    if (LettersGuessedRight == word.size())
+                                    {
+                                        cout <<("Correct\n");
+                                        cout <<("The word was " + word);
+                                    }
+                                    else
+                                    {
+                                        guess();
+                                    }
+                
+                
+                                }
+                
+                
+                            }
+                            else {
+                
+                                //wrong 
+                                system("CLS");
+                                LettersGuessed.push_back(Guess);
+                                misses++;
+                                cout <<("Letter guessed is wrong\n");
+                                Sleep(1000);
+                                guess();
+                
+                            }
+                        }
+                    }
+                    else
+                    {
+                        cout << ("You lost\n");
+                        cout << ("The word was " + word);
+                    }
+                
+                }
+                
+                void game()
+                {
+                    //no letter = 18446744073709551615
+                    srand(time(nullptr));
+                    int WordNum = rand() % 50 + 1;
+                    word = words[WordNum];
+                
+                    //setup hidden word
+                    for (int i = 0; i < word.size(); i++)
+                    {
+                
+                        WordHidden.push_back("-");
+                
+                    }
+                
+                    guess();
+                
+                }
+                
+                int main()
+                {
+                
+                    srand(time(nullptr));
+                    game();
+                
+                }
+
+            </code></pre>
+
+            <a href="https://github.com/JaylonSwan/HangMan" style="text-decoration: none; color:black">
+                <i class="fa-brands fa-github fa-xl"> GitHub</i>
+            </a></a>
+        </div>
+        <div>
+            <h2>How to play</h2>
+            <p>When you start the game you will be asked to enter a word. Once you enter the word you will be asked to guess a letter. If the letter is in the word it will be displayed. If the letter is not in the word you will lose a life. You have 6 lives. If you lose all 6 lives you lose the game. If you guess the word you win the game.</p>
+        </div>
+    </div>
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll();
+    </script>
+</body>
+</html>

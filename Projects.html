@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html>
+  <link href = "style.css" rel = "stylesheet">
+<head>
+  <title>Page Title</title>
+</head>
+<body>
+  <div class="navbar">
+    <ul>
+      <li><a href="index.html" id = "about_nav">About</a></li>
+      <li><a href="Projects.html" id = "projects_nav">Projects</a></li>
+      <li><a href="">More</a></li>
+    </ul>
+  </div>
+
+ <h1 style="text-align: center;">projects</h1>
+ <h2 style="text-align: center;">Projects created by me</h2>
+  
+ <div style="display: flex; align-items: center; justify-content: center;">
+  <table>
+    <tr> 
+      <td style="background-image: url('hangmancode.PNG');" class="animate-cell">Hang Man</td>
+      <td class="animate-cell">PROJECT 2</td>
+      <td class="animate-cell">PROJECT 3</td>
+    </tr>
+
+    <tr> 
+      <td class="animate-cell">PROJECT 4</td>
+      <td class="animate-cell">PROJECT 5</td>
+      <td class="animate-cell">PROJECT 6</td>
+    </tr>
+    
+  </table>
+</div>
+ <script>
+    if (location.href.includes("Projects.html")){
+      document.getElementById("projects_nav").style.color = "#DCB6D5"
+      
+    }
+
+    const animateCells = document.querySelectorAll('.animate-cell');
+
+    animateCells.forEach(cell => {
+      cell.addEventListener('click', () => {
+        cell.classList.toggle('zoomed');
+        location.href = "Project1.html";
+      });
+    });
+</script>
+</body>
+</html>
