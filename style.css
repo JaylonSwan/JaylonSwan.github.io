@@ -71,7 +71,7 @@ td {
   background-color: white;
   text-align: center;
   margin: 10px;
-  font-size: 0;
+  font-size: 0px;
 
 
 }
@@ -85,9 +85,14 @@ td:hover {
   background-color: white;
   text-align: center;
   margin: 10px;
-  font-size: large;
+
+  animation: fontanimte 1s forwards;
   color: white;
-  backdrop-filter: blur(100000px);
+}
+
+@keyframes fontanimte {
+  from {font-size: 0px;}
+  to {font-size: large;}
 }
 
 
@@ -122,5 +127,9 @@ td:hover {
   transform: scale(2); /* zoom in effect */
 }
 
+
+.animated-text {
+  animation: fadeIn 2s;
+}
 
 
